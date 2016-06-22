@@ -12,6 +12,7 @@ import java.io.File;
 public class FileManager {
 
     private File file;
+    private File currentDir;
     private JAXBContext jaxbContext;
     private Marshaller jaxbMarshaller;
     private Unmarshaller jaxbUnmarshaller;
@@ -20,6 +21,7 @@ public class FileManager {
      * Costruttore della classe
      */
     public FileManager() {
+        currentDir = new File(System.getProperty("user.home"));
         try {
             jaxbContext = JAXBContext.newInstance(GameOfLife.class);
             jaxbMarshaller = jaxbContext.createMarshaller();
@@ -73,5 +75,14 @@ public class FileManager {
      */
     public void setFile(File file) {
         this.file = file;
+        currentDir = file.getParentFile();
+    }
+
+    public File getCurrentDir() {
+        return currentDir;
+    }
+
+    public void setCurrentDir(File currentDir) {
+        this.currentDir = currentDir;
     }
 }

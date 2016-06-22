@@ -32,6 +32,7 @@ public class MainWindow extends JFrame {
     private JScrollPane scrollPane;
     private FileManager fileManager;
     private String status = "[New]";
+    private int refreshIntervalms = 1000;
 
     /**
      * Costruttore della finestra principale
@@ -70,7 +71,7 @@ public class MainWindow extends JFrame {
      */
     private void showChangeSizeDialog() {
         stopTimer();
-        new InputGameSizeDialog(gameFieldPanel);
+        new InputGameSizeDialog(this, gameFieldPanel);
         gameFieldPanel.recomputeSize();
         scrollPane.updateUI();
         setTitle();
@@ -82,7 +83,7 @@ public class MainWindow extends JFrame {
     private void startTimer() {
         if (!timerRunning) {
             timer = new Timer();
-            timer.schedule(new EvolveGame(), 0, 1000);
+            timer.schedule(new EvolveGame(), 0, refreshIntervalms);
             timerRunning = true;
             status = "[Running]";
             setTitle();
@@ -140,6 +141,7 @@ public class MainWindow extends JFrame {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Game of life files", "life");
         fileChooser.setFileFilter(fileFilter);
+        fileChooser.setCurrentDirectory(fileManager.getCurrentDir());
         int result = fileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File choosedFile = fileChooser.getSelectedFile();
@@ -160,18 +162,22 @@ public class MainWindow extends JFrame {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Game of life files", "life");
         fileChooser.setFileFilter(fileFilter);
+        fileChooser.setCurrentDirectory(fileManager.getCurrentDir());
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             fileManager.setFile(fileChooser.getSelectedFile());
             gameFieldPanel.setGame(fileManager.loadGame());
+            scrollPane.updateUI();
         }
         setTitle();
     }
 
     private void openLastSaved() {
-        stopTimer();
         if (fileManager.getFile() != null) {
+            stopTimer();
             gameFieldPanel.setGame(fileManager.loadGame());
+            scrollPane.updateUI();
+            setTitle();
         }
     }
 
@@ -239,6 +245,14 @@ public class MainWindow extends JFrame {
         itemSaveAs.addActionListener(e -> saveAs());
         fileMenu.add(itemSaveAs);
 
+    }
+
+    public int getRefreshIntervalms() {
+        return refreshIntervalms;
+    }
+
+    public void setRefreshIntervalms(int refreshIntervalms) {
+        this.refreshIntervalms = refreshIntervalms;
     }
 
     /**

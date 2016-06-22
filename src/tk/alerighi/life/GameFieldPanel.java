@@ -119,6 +119,10 @@ public class GameFieldPanel extends JPanel {
             g.drawLine(i * cellSize, 0, i * cellSize, height * cellSize);
         }
 
+        g.setColor(Color.RED);
+        g.fillOval((width - 1) * cellSize / 2 + 2, (height - 1) * cellSize / 2 + 2, cellSize - 4, cellSize - 4);
+        g.setColor(Color.BLACK);
+
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (getGame().getXY(i, j)) {
