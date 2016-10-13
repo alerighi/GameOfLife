@@ -1,4 +1,4 @@
-package tk.alerighi.life;
+package it.alerighi.life;
 
 import javax.swing.*;
 import java.awt.*;

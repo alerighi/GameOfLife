@@ -1,4 +1,4 @@
-package tk.alerighi.life;
+package it.alerighi.life;
 
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Alessandro Righi
  */
 @XmlRootElement
-public class GameOfLife {
+class GameOfLife {
 
     private boolean[][] field;
     private int width;
@@ -24,14 +24,17 @@ public class GameOfLife {
      * @param height altezza del campo
      * @param width  larghezza del campo
      */
-    public GameOfLife(int height, int width) {
+    GameOfLife(int height, int width) {
         this.width = width;
         this.height = height;
         this.setField(new boolean[height][width]);
     }
 
-    public GameOfLife() {
-        this(10, 10);
+    /**
+     * Costruttore senza parametri predefinito: serve per la libreria di esportazione in XML
+     */
+    GameOfLife() {
+
     }
 
     /**
@@ -39,7 +42,7 @@ public class GameOfLife {
      *
      * @return true se il gioco è vivo
      */
-    public boolean isAlive() {
+    boolean isAlive() {
         return alive;
     }
 
@@ -50,7 +53,7 @@ public class GameOfLife {
      * @param x   coordinata x
      * @param val valore da settare
      */
-    public void setYX(int y, int x, boolean val) {
+    void setYX(int y, int x, boolean val) {
         if (y < 0 || x < 0 || y >= height || x >= width) {
             /* TODO: eccezione */
             return;
@@ -66,11 +69,8 @@ public class GameOfLife {
      * @param x coordinata x
      * @return valore contenuto nella cella indicata
      */
-    public boolean getXY(int y, int x) {
-        if (y < 0 || x < 0 || y >= height || x >= width) {
-            /* TODO: eccezione */
-            return false;
-        }
+    boolean getXY(int y, int x) {
+        /* TODO: controllo limiti array */
         return field[y][x];
     }
 
@@ -79,7 +79,7 @@ public class GameOfLife {
      *
      * @return altezza del campo
      */
-    public int getHeight() {
+    int getHeight() {
         return height;
     }
 
@@ -89,7 +89,7 @@ public class GameOfLife {
      * @param height la nuova altezza
      */
     @XmlAttribute
-    public void setHeight(int height) {
+    void setHeight(int height) {
         this.height = height;
         reset();
     }
@@ -99,7 +99,7 @@ public class GameOfLife {
      *
      * @return larghezza del campo
      */
-    public int getWidth() {
+    int getWidth() {
         return width;
     }
 
@@ -109,7 +109,7 @@ public class GameOfLife {
      * @param width la nuova larghezza
      */
     @XmlAttribute
-    public void setWidth(int width) {
+    void setWidth(int width) {
         this.width = width;
         reset();
     }
@@ -117,7 +117,7 @@ public class GameOfLife {
     /**
      * Resetta il gioco, reinizzializzando il campo a 0
      */
-    public void reset() {
+    void reset() {
         setField(new boolean[height][width]);
     }
 
@@ -149,7 +149,7 @@ public class GameOfLife {
      * c) se una cella popolata è circondata da meno di 2 celle popolate, muore per isolamento
      * d) se una cella popolata è circondata da 2 o 3 celle popolate, sopravvive
      */
-    public void evolve() {
+    void evolve() {
         boolean[][] tmp = new boolean[height][width];
         alive = false;
 
@@ -186,7 +186,7 @@ public class GameOfLife {
      *
      * @param field array del campo da gioco
      */
-    public void setField(boolean[][] field) {
+    private void setField(boolean[][] field) {
         this.field = field;
     }
 }

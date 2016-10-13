@@ -1,4 +1,4 @@
-package tk.alerighi.life;
+package it.alerighi.life;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -9,7 +9,7 @@ import java.io.File;
 /**
  * Classe che gestisce il caricamento ed il salvataggio del gioco su file XML
  */
-public class FileManager {
+class FileManager {
 
     private File file;
     private File currentDir;
@@ -20,7 +20,7 @@ public class FileManager {
     /**
      * Costruttore della classe
      */
-    public FileManager() {
+    FileManager() {
         currentDir = new File(System.getProperty("user.home"));
         try {
             jaxbContext = JAXBContext.newInstance(GameOfLife.class);
@@ -37,7 +37,7 @@ public class FileManager {
      *
      * @param game il gioco da salvare
      */
-    public void saveGame(GameOfLife game) {
+    void saveGame(GameOfLife game) {
         try {
             jaxbMarshaller.marshal(game, file);
         } catch (JAXBException e) {
@@ -50,7 +50,7 @@ public class FileManager {
      *
      * @return il gioco caricato
      */
-    public GameOfLife loadGame() {
+    GameOfLife loadGame() {
         try {
             return (GameOfLife) jaxbUnmarshaller.unmarshal(file);
         } catch (JAXBException e) {
@@ -64,7 +64,7 @@ public class FileManager {
      *
      * @return file selezionato
      */
-    public File getFile() {
+    File getFile() {
         return file;
     }
 
@@ -73,16 +73,13 @@ public class FileManager {
      *
      * @param file file in uso
      */
-    public void setFile(File file) {
+    void setFile(File file) {
         this.file = file;
         currentDir = file.getParentFile();
     }
 
-    public File getCurrentDir() {
+    File getCurrentDir() {
         return currentDir;
     }
 
-    public void setCurrentDir(File currentDir) {
-        this.currentDir = currentDir;
-    }
 }
