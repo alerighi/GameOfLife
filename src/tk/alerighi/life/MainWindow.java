@@ -23,7 +23,7 @@ import java.util.TimerTask;
  *  - rimuovere metodi poco usati, creare metodi nuovi per spezzare metodi troppo lunghi, tipo metodi load e save
  *  - generare pacchetto jar ?
  */
-public class MainWindow extends JFrame {
+class MainWindow extends JFrame {
 
     private final String TITLE = "Game of life";
     private GameFieldPanel gameFieldPanel;
@@ -37,7 +37,7 @@ public class MainWindow extends JFrame {
     /**
      * Costruttore della finestra principale
      */
-    public MainWindow() {
+    MainWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new GridLayout());
         createMenuBar();
@@ -71,7 +71,7 @@ public class MainWindow extends JFrame {
      */
     private void showChangeSizeDialog() {
         stopTimer();
-        new InputGameSizeDialog(this, gameFieldPanel);
+        new GameSettingsDialog(this, gameFieldPanel);
         gameFieldPanel.recomputeSize();
         scrollPane.updateUI();
         setTitle();
@@ -247,11 +247,11 @@ public class MainWindow extends JFrame {
 
     }
 
-    public int getRefreshIntervalms() {
+    int getRefreshIntervalms() {
         return refreshIntervalms;
     }
 
-    public void setRefreshIntervalms(int refreshIntervalms) {
+    void setRefreshIntervalms(int refreshIntervalms) {
         this.refreshIntervalms = refreshIntervalms;
     }
 

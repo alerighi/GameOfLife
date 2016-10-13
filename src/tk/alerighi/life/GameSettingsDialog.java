@@ -8,7 +8,7 @@ import java.awt.*;
  *
  * @author Alessandro Righi
  */
-public class InputGameSizeDialog extends JDialog {
+class GameSettingsDialog extends JDialog {
 
     private GameOfLife game;
     private GameFieldPanel fieldPanel;
@@ -23,7 +23,7 @@ public class InputGameSizeDialog extends JDialog {
      *
      * @param fieldPanel il pannello del gioco da modificare
      */
-    public InputGameSizeDialog(MainWindow parent, GameFieldPanel fieldPanel) {
+    GameSettingsDialog(MainWindow parent, GameFieldPanel fieldPanel) {
         this.fieldPanel = fieldPanel;
         this.parent = parent;
         game = fieldPanel.getGame();

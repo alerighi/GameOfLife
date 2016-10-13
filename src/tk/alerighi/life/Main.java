@@ -1,5 +1,7 @@
 package tk.alerighi.life;
 
+import javax.swing.*;
+
 /**
  * Classe main per il GameOfLife
  * <p>
@@ -19,7 +21,12 @@ public class Main {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         System.setProperty("apple.awt.application.name", "Game Of Life");
 
-        new MainWindow();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        new MainWindow();
     }
 }

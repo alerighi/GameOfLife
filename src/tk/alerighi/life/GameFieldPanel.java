@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
  *
  * @author Alessandro Righi
  */
-public class GameFieldPanel extends JPanel {
+class GameFieldPanel extends JPanel {
 
     private GameOfLife game;
     private int cellSize = 17;
@@ -18,7 +18,7 @@ public class GameFieldPanel extends JPanel {
     /**
      * Costruttore di un nuovo oggetto GameFieldPanel che mostra il gioco in un panel
      */
-    public GameFieldPanel() {
+    GameFieldPanel() {
         this.setGame(new GameOfLife(30, 60));
         addMouseListener(new MyMouseListener());
     }
@@ -28,7 +28,7 @@ public class GameFieldPanel extends JPanel {
      *
      * @return il gioco corrente
      */
-    public GameOfLife getGame() {
+    GameOfLife getGame() {
         return game;
     }
 
@@ -37,12 +37,12 @@ public class GameFieldPanel extends JPanel {
      *
      * @param game il nuovo gioco da settare
      */
-    public void setGame(GameOfLife game) {
+    void setGame(GameOfLife game) {
         this.game = game;
         recomputeSize();
     }
 
-    public void recomputeSize() {
+    void recomputeSize() {
         int width = game.getWidth();
         int height = game.getHeight();
         setPreferredSize(new Dimension(width * cellSize, height * cellSize));
@@ -54,7 +54,7 @@ public class GameFieldPanel extends JPanel {
      *
      * @return dimensione di una cella
      */
-    public int getCellSize() {
+    int getCellSize() {
         return cellSize;
     }
 
@@ -63,7 +63,7 @@ public class GameFieldPanel extends JPanel {
      *
      * @param cellSize dimensione di una cella del campo
      */
-    public void setCellSize(int cellSize) {
+    void setCellSize(int cellSize) {
         this.cellSize = cellSize;
         recomputeSize();
     }
@@ -71,7 +71,7 @@ public class GameFieldPanel extends JPanel {
     /**
      * Aumenta di 2 la dimensione din una cella, e ridisegna il campo.
      */
-    public void zoomIn() {
+    void zoomIn() {
         if (cellSize < 30) {
             cellSize++;
         }
@@ -81,7 +81,7 @@ public class GameFieldPanel extends JPanel {
     /**
      * Diminuisce di 2 la dimensione di una cella, e ridisegna il campo.
      */
-    public void zoomOut() {
+    void zoomOut() {
         if (cellSize > 5) {
             cellSize--;
         }
@@ -91,12 +91,12 @@ public class GameFieldPanel extends JPanel {
     /**
      * Esegue un evoluzione del game of life, se così si può chiamare.
      */
-    public void evolveGame() {
+    void evolveGame() {
         game.evolve();
         repaint();
     }
 
-    public void resetGame() {
+    void resetGame() {
         game.reset();
         repaint();
     }
@@ -110,6 +110,10 @@ public class GameFieldPanel extends JPanel {
     public void paint(Graphics g) {
         int width = getGame().getWidth();
         int height = getGame().getHeight();
+
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, width*cellSize, height*cellSize);
+        g.setColor(Color.BLACK);
 
         for (int i = 0; i <= height; i++) {
             g.drawLine(0, i * cellSize, width * cellSize, i * cellSize);
